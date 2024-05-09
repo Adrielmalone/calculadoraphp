@@ -7,7 +7,7 @@
     <title>Calculadora PHP</title>
     <style>
        body {
-            background: linear-gradient(135deg, #000000 42%, darkorange);
+            background: linear-gradient(135deg, #000000 45%, darkorange);
             color: orange;
             font-family: Arial, sans-serif;
             text-align: center;
@@ -61,8 +61,6 @@
                     <option value="-">-</option>
                     <option value=""></option>
                     <option value="/">/</option>
-                    <option value="!">n!</option>
-                    <option value="^">x^y</option>
                 </select>
                 <input type="text" name="num2" placeholder="Número 2">
                 <button type="submit">Calcular</button>
@@ -88,12 +86,6 @@
                         break;
                     case '/':
                         $result = $num1 / $num2;
-                        break;
-                    case '!':
-                        $result = factorial($num1);
-                        break;
-                    case '^':
-                        $result = pow($num1, $num2);
                         break;
                     default:
                         $result = 'Operação inválida';
