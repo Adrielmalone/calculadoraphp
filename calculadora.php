@@ -102,3 +102,58 @@
 
                 echo "$num1 $operation $num2 = $result";
             }
+
+            function factorial($num) {
+                if ($num === 0 || $num === 1) {
+                    return 1;
+                } else {
+                    return $num * factorial($num - 1);
+                }
+            }
+            ?>
+        </div>
+
+        <form method="post">
+            <?php
+            if (isset($_POST['num1']) && isset($_POST['num2']) && isset($_POST['operation'])) {
+                echo '<input type="hidden" name="num1" value="' . $_POST['num1'] . '">';
+                echo '<input type="hidden" name="num2" value="' . $_POST['num2'] . '">';
+                echo '<input type="hidden" name="operation" value="' . $_POST['operation'] . '">';
+            }
+            ?>
+            <button type="submit" name="memory" value="save">Salvar</button>
+            <button type="submit" name="memory" value="retrieve">Pegar Valores</button>
+            <button type="submit" name="memory" value="clear">Apagar Histórico</button>
+        </form>
+
+        <div class="history">
+            <h3>Histórico</h3>
+            <?php
+            session_start();
+            if (!isset($_SESSION['history'])) {
+                $_SESSION['history'] = array();
+            }
+
+            if (isset($_POST['memory'])) {
+                switch ($_POST['memory']) {
+                    case 'save':
+                        $expression = $_POST['num1'] . ' ' . $_POST['operation'] . ' ' . $_POST['num2'] . ' = ' . $result;
+                        $_SESSION['history'][] = $expression;
+                        break;
+                    case 'retrieve':
+                        foreach ($_SESSION['history'] as $calculation) {
+                            echo "<p>$calculation</p>";
+                        }
+                        break;
+                    case 'clear':
+                        $_SESSION['history'] = array();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            ?>
+        </div>
+    </div>
+</body>
+</html>
